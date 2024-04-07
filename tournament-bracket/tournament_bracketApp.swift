@@ -12,7 +12,7 @@ import SwiftData
 struct tournament_bracketApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Bracket.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +25,7 @@ struct tournament_bracketApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardView(modelContext: sharedModelContainer.mainContext)
         }
         .modelContainer(sharedModelContainer)
     }
