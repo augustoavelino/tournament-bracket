@@ -33,12 +33,6 @@ extension DashboardView {
             fetchData()
         }
         
-        func title(for match: Match) -> String {
-            let homeCompetitor = match.homeCompetitor?.name ?? "TBD (Home)"
-            let awayCompetitor = match.awayCompetitor?.name ?? "TBD (Away)"
-            return "\(homeCompetitor) X \(awayCompetitor)"
-        }
-        
         func deleteBrackets(at offsets: IndexSet) {
             for index in offsets {
                 modelContext.delete(brackets[index])

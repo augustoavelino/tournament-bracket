@@ -22,3 +22,15 @@ class Match: Identifiable, Codable {
         self.date = date
     }
 }
+
+// MARK: - Hashable
+
+extension Match: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self)
+    }
+    
+    static func == (lhs: Match, rhs: Match) -> Bool {
+        lhs.id == rhs.id
+    }
+}

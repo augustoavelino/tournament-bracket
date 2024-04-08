@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DashboardBracketRow: View {
     var title: String
-    var matchDescriptions: [String]
     
     var body: some View {
         VStack(spacing: 8.0) {
@@ -33,14 +32,8 @@ struct DashboardBracketRow: View {
 
 #Preview {
     Group {
-        DashboardBracketRow(title: "Test", matchDescriptions: [
-            "João Grilo X Chicó",
-            "Chapolin Colorado X Homem-Formiga",
-        ])
-        DashboardBracketRow(title: "Other", matchDescriptions: [
-        ])
-        DashboardBracketRow(title: "Another", matchDescriptions: [
-        ])
+        DashboardBracketRow(title: "Test")
+        DashboardBracketRow(title: "Other")
+        DashboardBracketRow(title: "Another")
     }
-    .preferredColorScheme(.dark)
 }

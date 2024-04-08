@@ -10,8 +10,6 @@ import SwiftUI
 
 struct NewBracketView: View {
     @ObservedObject var viewModel: ViewModel
-    @State private var isPresentingAlert = false
-    @State private var alertText: String = ""
     @Environment(\.dismiss) private var dismiss
     
     init(modelContext: ModelContext) {
@@ -20,34 +18,38 @@ struct NewBracketView: View {
     
     var body: some View {
         VStack(spacing: 0.0) {
-            TextField("Tournament", text: $viewModel.tournamentName)
-                .font(.title)
-            Divider()
-                .padding(.top, 8.0)
-            List {
-                Section {
-                    ForEach(viewModel.competitors) { competitor in
-                        Text(competitor.name)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.leading, .trailing], 8.0)
+            VStack(spacing: 0.0) {
+                TextField("Tournament", text: $viewModel.tournamentName)
+                    .font(.title)
+                Divider()
+                    .padding(.top, 8.0)
+            }
+            VStack {
+                List {
+                    Section {
+                        ForEach(viewModel.competitors) { competitor in
+                            Text(competitor.name)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 8.0)
+                        }
+                    } header: {
+                        Text("Competitors")
                     }
-                } header: {
-                    Text("Competitors")
                 }
-            }
-            .listStyle(.inset)
-            Button("Add Competitor", systemImage: "plus.circle") {
-                alertText = ""
-                isPresentingAlert = true
-            }
-            .alert("New Competitor", isPresented: $isPresentingAlert) {
-                TextField("Name", text: $alertText)
-                Button("Add") {
-                    viewModel.addCompetitor(named: alertText)
-                    isPresentingAlert = false
+                .listStyle(.inset)
+                Button("Add Competitor", systemImage: "plus.circle") {
+                    viewModel.alertText = ""
+                    viewModel.isPresentingAlert = true
                 }
-                Button("Cancel", role: .cancel) {
-                    isPresentingAlert = false
+                .alert("New Competitor", isPresented: $viewModel.isPresentingAlert) {
+                    TextField("Name", text: $viewModel.alertText)
+                    Button("Add") {
+                        viewModel.addCompetitor(named: viewModel.alertText)
+                        viewModel.isPresentingAlert = false
+                    }
+                    Button("Cancel", role: .cancel) {
+                        viewModel.isPresentingAlert = false
+                    }
                 }
             }
         }

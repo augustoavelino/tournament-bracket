@@ -15,30 +15,34 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack(path: $path) {
             VStack(spacing: 0.0) {
-                MatchesCarousel(matches: viewModel.nextMatches)
+                MatchesCarousel(matches: viewModel.nextMatches) { match in
+                    path.append(match)
+                }
+                .navigationDestination(for: Match.self) { match in
+                    MatchDetailsView(match: match)
+                }
                 Divider()
                 Section {
-                    if viewModel.brackets.isEmpty {
-                        Text("No tournaments")
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
+                    ZStack {
                         List {
                             ForEach(viewModel.brackets) { bracket in
-                                let matches = bracket.matches
-                                let descriptions = matches.map(viewModel.title(for:))
-                                DashboardBracketRow(title: bracket.title, matchDescriptions: descriptions)
+                                DashboardBracketRow(title: bracket.title)
                                     .onTapGesture {
                                         path.append(bracket)
-                                    }
-                                    .navigationDestination(for: Bracket.self) { bracket in
-                                        BracketDetailsView(modelContext: viewModel.modelContext, bracket: bracket)
                                     }
                             }
                             .onDelete(perform: deleteItems(offset:))
                         }
-                        
+                        .listStyle(.inset)
+                        .navigationDestination(for: Bracket.self) { bracket in
+                            BracketDetailsView(modelContext: viewModel.modelContext, bracket: bracket)
+                        }
+                        if viewModel.brackets.isEmpty {
+                            Text("No tournaments")
+                                .font(.callout)
+                                .foregroundStyle(.secondary)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
                     }
                 } header: {
                     Text("Tournaments")
@@ -47,7 +51,7 @@ struct DashboardView: View {
                         .foregroundStyle(.secondary)
                         .padding()
                 }
-                .listStyle(.inset)
+                
                 Divider()
                 Button("New Tournament") {
                     path.append("create-tournament")
@@ -78,28 +82,31 @@ struct DashboardView: View {
 }
 
 #Preview {
+    let addPreviewBrackets = true
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Bracket.self, configurations: config)
     let context = ModelContext(container)
-    context.insert(Bracket(id: UUID(), title: "1st Tournament", competitors: [
-        Competitor(id: UUID(), name: "Testando"),
-        Competitor(id: UUID(), name: "Outro Teste"),
-        Competitor(id: UUID(), name: "Mais um teste"),
-        Competitor(id: UUID(), name: "Ainda mais um teste"),
-    ]))
-    context.insert(Bracket(id: UUID(), title: "2nd Tournament", competitors: [
-        Competitor(id: UUID(), name: "Testando"),
-        Competitor(id: UUID(), name: "Outro Teste"),
-        Competitor(id: UUID(), name: "Mais um teste"),
-        Competitor(id: UUID(), name: "Ainda mais um teste"),
-        Competitor(id: UUID(), name: "Mais um teste"),
-        Competitor(id: UUID(), name: "Ainda mais um teste"),
-        Competitor(id: UUID(), name: "Mais um teste"),
-        Competitor(id: UUID(), name: "Ainda mais um teste"),
-    ]))
-    context.insert(Bracket(id: UUID(), title: "3rd Tournament", competitors: [
-        Competitor(id: UUID(), name: "Testando"),
-        Competitor(id: UUID(), name: "Outro Teste"),
-    ]))
+    if addPreviewBrackets {
+        context.insert(Bracket(id: UUID(), title: "1st Tournament", competitors: [
+            Competitor(id: UUID(), name: "Team 1"),
+            Competitor(id: UUID(), name: "Team 2"),
+            Competitor(id: UUID(), name: "Team 3"),
+            Competitor(id: UUID(), name: "Team 4"),
+        ]))
+        context.insert(Bracket(id: UUID(), title: "2nd Tournament", competitors: [
+            Competitor(id: UUID(), name: "Time 1"),
+            Competitor(id: UUID(), name: "Time 2"),
+            Competitor(id: UUID(), name: "Time 3"),
+            Competitor(id: UUID(), name: "Time 4"),
+            Competitor(id: UUID(), name: "Time 5"),
+            Competitor(id: UUID(), name: "Time 6"),
+            Competitor(id: UUID(), name: "Time 7"),
+            Competitor(id: UUID(), name: "Time 8"),
+        ]))
+        context.insert(Bracket(id: UUID(), title: "3rd Tournament", competitors: [
+            Competitor(id: UUID(), name: "Team 1"),
+            Competitor(id: UUID(), name: "Team 2"),
+        ]))
+    }
     return DashboardView(modelContext: context)
 }

@@ -46,7 +46,18 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dashboard"
+            "value" : "Painel"
+          }
+        }
+      }
+    },
+    "Final" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Final"
           }
         }
       }
@@ -97,6 +108,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sem torneios"
+          }
+        }
+      }
+    },
+    "Round" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rodada"
           }
         }
       }

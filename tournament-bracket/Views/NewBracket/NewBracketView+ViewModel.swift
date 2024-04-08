@@ -13,6 +13,8 @@ extension NewBracketView {
         let modelContext: ModelContext
         @Published var tournamentName: String = ""
         @Published var competitors: [Competitor] = []
+        @Published var isPresentingAlert = false
+        @Published var alertText: String = ""
         
         init(modelContext: ModelContext) {
             self.modelContext = modelContext

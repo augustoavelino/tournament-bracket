@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Competitor: Identifiable, Codable {
+class Competitor: Identifiable, Codable {
     let id: UUID
     var name: String
     

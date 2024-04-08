@@ -21,6 +21,8 @@ class Round: Identifiable, Codable {
     }
 }
 
+// MARK: - Comparable
+
 extension Round: Comparable {
     static func == (lhs: Round, rhs: Round) -> Bool {
         lhs.id == rhs.id
