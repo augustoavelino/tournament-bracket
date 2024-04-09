@@ -14,6 +14,7 @@
 		6537BAC32BC0C19B00868B8A /* DashboardView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6537BAC22BC0C19B00868B8A /* DashboardView+ViewModel.swift */; };
 		6537BAC62BC0CFC600868B8A /* DashboardBracketRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6537BAC52BC0CFC600868B8A /* DashboardBracketRow.swift */; };
 		6537BAC92BC0E5D100868B8A /* PrimaryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6537BAC82BC0E5D100868B8A /* PrimaryButtonStyle.swift */; };
+		653BD4802BC57C8B00BAB2A0 /* BracketDetailsMatchRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653BD47F2BC57C8B00BAB2A0 /* BracketDetailsMatchRow.swift */; };
 		654FDEBD2BC1C09D00C5CDFA /* NewBracketView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FDEBC2BC1C09D00C5CDFA /* NewBracketView+ViewModel.swift */; };
 		6557651D2BC2015E005FABD6 /* BracketDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6557651C2BC2015E005FABD6 /* BracketDetailsView.swift */; };
 		6557651F2BC2016E005FABD6 /* BracketDetailsView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6557651E2BC2016E005FABD6 /* BracketDetailsView+ViewModel.swift */; };
@@ -25,9 +26,11 @@
 		655A343A2BC03E7600275DDA /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 655A34392BC03E7600275DDA /* Localizable.xcstrings */; };
 		655A343C2BC03F8900275DDA /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A343B2BC03F8900275DDA /* Match.swift */; };
 		655A343E2BC0411F00275DDA /* Competitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A343D2BC0411F00275DDA /* Competitor.swift */; };
+		6567ABB92BC4222700184CB5 /* DashboardSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6567ABB82BC4222700184CB5 /* DashboardSection.swift */; };
+		6567ABBB2BC4340B00184CB5 /* FlatLinkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6567ABBA2BC4340B00184CB5 /* FlatLinkStyle.swift */; };
 		656FA0512BC195E5008E0361 /* NewBracketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656FA0502BC195E5008E0361 /* NewBracketView.swift */; };
-		656FA0532BC19660008E0361 /* MatchesCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656FA0522BC19660008E0361 /* MatchesCarousel.swift */; };
-		656FA0552BC19931008E0361 /* MatchCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656FA0542BC19931008E0361 /* MatchCard.swift */; };
+		656FA0532BC19660008E0361 /* DashboardMatchCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656FA0522BC19660008E0361 /* DashboardMatchCarousel.swift */; };
+		656FA0552BC19931008E0361 /* DashboardMatchCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656FA0542BC19931008E0361 /* DashboardMatchCard.swift */; };
 		65A2ADD92BC0A7D100D25B86 /* BracketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2ADD82BC0A7D100D25B86 /* BracketTests.swift */; };
 		65F8CB252BC044000032C6A9 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F8CB242BC044000032C6A9 /* DashboardView.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +53,7 @@
 		6537BAC22BC0C19B00868B8A /* DashboardView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DashboardView+ViewModel.swift"; sourceTree = "<group>"; };
 		6537BAC52BC0CFC600868B8A /* DashboardBracketRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardBracketRow.swift; sourceTree = "<group>"; };
 		6537BAC82BC0E5D100868B8A /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
+		653BD47F2BC57C8B00BAB2A0 /* BracketDetailsMatchRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketDetailsMatchRow.swift; sourceTree = "<group>"; };
 		654FDEBC2BC1C09D00C5CDFA /* NewBracketView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewBracketView+ViewModel.swift"; sourceTree = "<group>"; };
 		6557651C2BC2015E005FABD6 /* BracketDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketDetailsView.swift; sourceTree = "<group>"; };
 		6557651E2BC2016E005FABD6 /* BracketDetailsView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BracketDetailsView+ViewModel.swift"; sourceTree = "<group>"; };
@@ -62,9 +66,11 @@
 		655A34392BC03E7600275DDA /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		655A343B2BC03F8900275DDA /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		655A343D2BC0411F00275DDA /* Competitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Competitor.swift; sourceTree = "<group>"; };
+		6567ABB82BC4222700184CB5 /* DashboardSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSection.swift; sourceTree = "<group>"; };
+		6567ABBA2BC4340B00184CB5 /* FlatLinkStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatLinkStyle.swift; sourceTree = "<group>"; };
 		656FA0502BC195E5008E0361 /* NewBracketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBracketView.swift; sourceTree = "<group>"; };
-		656FA0522BC19660008E0361 /* MatchesCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesCarousel.swift; sourceTree = "<group>"; };
-		656FA0542BC19931008E0361 /* MatchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCard.swift; sourceTree = "<group>"; };
+		656FA0522BC19660008E0361 /* DashboardMatchCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMatchCarousel.swift; sourceTree = "<group>"; };
+		656FA0542BC19931008E0361 /* DashboardMatchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMatchCard.swift; sourceTree = "<group>"; };
 		65A2ADCF2BC0A78300D25B86 /* tournament-bracketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tournament-bracketTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A2ADD82BC0A7D100D25B86 /* BracketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketTests.swift; sourceTree = "<group>"; };
 		65F8CB242BC044000032C6A9 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -119,8 +125,9 @@
 			isa = PBXGroup;
 			children = (
 				6537BAC52BC0CFC600868B8A /* DashboardBracketRow.swift */,
-				656FA0542BC19931008E0361 /* MatchCard.swift */,
-				656FA0522BC19660008E0361 /* MatchesCarousel.swift */,
+				656FA0542BC19931008E0361 /* DashboardMatchCard.swift */,
+				656FA0522BC19660008E0361 /* DashboardMatchCarousel.swift */,
+				6567ABB82BC4222700184CB5 /* DashboardSection.swift */,
 				650970AC2BC3643A0099DB42 /* SplitCardShape.swift */,
 			);
 			path = Components;
@@ -130,8 +137,17 @@
 			isa = PBXGroup;
 			children = (
 				6537BAC82BC0E5D100868B8A /* PrimaryButtonStyle.swift */,
+				6567ABBA2BC4340B00184CB5 /* FlatLinkStyle.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
+		653BD47E2BC57C7400BAB2A0 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				653BD47F2BC57C8B00BAB2A0 /* BracketDetailsMatchRow.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		655765192BC200E4005FABD6 /* BracketDetails */ = {
@@ -139,6 +155,7 @@
 			children = (
 				6557651C2BC2015E005FABD6 /* BracketDetailsView.swift */,
 				6557651E2BC2016E005FABD6 /* BracketDetailsView+ViewModel.swift */,
+				653BD47E2BC57C7400BAB2A0 /* Components */,
 			);
 			path = BracketDetails;
 			sourceTree = "<group>";
@@ -187,8 +204,8 @@
 			isa = PBXGroup;
 			children = (
 				655A34362BC03E5C00275DDA /* Bracket.swift */,
-				655A343B2BC03F8900275DDA /* Match.swift */,
 				655A343D2BC0411F00275DDA /* Competitor.swift */,
+				655A343B2BC03F8900275DDA /* Match.swift */,
 				655765212BC20397005FABD6 /* Round.swift */,
 			);
 			path = Models;
@@ -336,6 +353,7 @@
 			files = (
 				655A34372BC03E5C00275DDA /* Bracket.swift in Sources */,
 				655A343E2BC0411F00275DDA /* Competitor.swift in Sources */,
+				6567ABB92BC4222700184CB5 /* DashboardSection.swift in Sources */,
 				656FA0512BC195E5008E0361 /* NewBracketView.swift in Sources */,
 				650970AD2BC3643A0099DB42 /* SplitCardShape.swift in Sources */,
 				650970A82BC31F4C0099DB42 /* TBNumberFormatter.swift in Sources */,
@@ -343,15 +361,17 @@
 				6537BAC62BC0CFC600868B8A /* DashboardBracketRow.swift in Sources */,
 				6557651F2BC2016E005FABD6 /* BracketDetailsView+ViewModel.swift in Sources */,
 				650970A52BC319650099DB42 /* MatchDetailsView+ViewModel.swift in Sources */,
+				653BD4802BC57C8B00BAB2A0 /* BracketDetailsMatchRow.swift in Sources */,
 				6557651D2BC2015E005FABD6 /* BracketDetailsView.swift in Sources */,
 				65F8CB252BC044000032C6A9 /* DashboardView.swift in Sources */,
 				654FDEBD2BC1C09D00C5CDFA /* NewBracketView+ViewModel.swift in Sources */,
-				656FA0552BC19931008E0361 /* MatchCard.swift in Sources */,
+				656FA0552BC19931008E0361 /* DashboardMatchCard.swift in Sources */,
 				6537BAC92BC0E5D100868B8A /* PrimaryButtonStyle.swift in Sources */,
+				6567ABBB2BC4340B00184CB5 /* FlatLinkStyle.swift in Sources */,
 				655A343C2BC03F8900275DDA /* Match.swift in Sources */,
 				655A34242BC0394F00275DDA /* tournament_bracketApp.swift in Sources */,
 				655765222BC20397005FABD6 /* Round.swift in Sources */,
-				656FA0532BC19660008E0361 /* MatchesCarousel.swift in Sources */,
+				656FA0532BC19660008E0361 /* DashboardMatchCarousel.swift in Sources */,
 				650970A32BC3194B0099DB42 /* MatchDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

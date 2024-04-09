@@ -22,6 +22,7 @@ struct DashboardBracketRow: View {
                     .font(.title2)
                 Spacer()
                 Image(systemName: "chevron.right")
+                    .foregroundStyle(.secondary)
             }
             .padding(8.0)
             .frame(height: 48.0)

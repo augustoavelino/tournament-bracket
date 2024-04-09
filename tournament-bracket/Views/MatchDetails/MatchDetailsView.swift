@@ -12,7 +12,7 @@ struct MatchDetailsView: View {
     
     var body: some View {
         VStack {
-            MatchCard(homeCompetitor: viewModel.match.homeCompetitor?.name ?? "Home", awayCompetitor: viewModel.match.awayCompetitor?.name ?? "Away", date: viewModel.match.date)
+            DashboardMatchCard(homeCompetitor: viewModel.match.homeCompetitor?.name ?? "Home", awayCompetitor: viewModel.match.awayCompetitor?.name ?? "Away", date: viewModel.match.date)
             Spacer()
         }
     }

@@ -41,6 +41,16 @@
         }
       }
     },
+    "Content" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contúdo"
+          }
+        }
+      }
+    },
     "Dashboard" : {
       "localizations" : {
         "pt-BR" : {
@@ -58,6 +68,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Final"
+          }
+        }
+      }
+    },
+    "Header" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cabeçalho"
           }
         }
       }
@@ -159,6 +179,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "A seguir"
+          }
+        }
+      }
+    },
+    "vs" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vs"
+          }
+        }
+      }
+    },
+    "Winner" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vencedor"
           }
         }
       }

@@ -15,14 +15,15 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack(path: $path) {
             VStack(spacing: 0.0) {
-                MatchesCarousel(matches: viewModel.nextMatches) { match in
-                    path.append(match)
+                DashboardSection(title: "Up next") {
+                    DashboardMatchCarousel(matches: viewModel.nextMatches)
                 }
+                .frame(height: 240.0)
                 .navigationDestination(for: Match.self) { match in
                     MatchDetailsView(match: match)
                 }
                 Divider()
-                Section {
+                DashboardSection(title: "Tournaments", headerTrailing: EmptyView.init) {
                     ZStack {
                         List {
                             ForEach(viewModel.brackets) { bracket in
@@ -34,9 +35,6 @@ struct DashboardView: View {
                             .onDelete(perform: deleteItems(offset:))
                         }
                         .listStyle(.inset)
-                        .navigationDestination(for: Bracket.self) { bracket in
-                            BracketDetailsView(modelContext: viewModel.modelContext, bracket: bracket)
-                        }
                         if viewModel.brackets.isEmpty {
                             Text("No tournaments")
                                 .font(.callout)
@@ -44,14 +42,10 @@ struct DashboardView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                     }
-                } header: {
-                    Text("Tournaments")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundStyle(.secondary)
-                        .padding()
                 }
-                
+                .navigationDestination(for: Bracket.self) { bracket in
+                    BracketDetailsView(modelContext: viewModel.modelContext, bracket: bracket)
+                }
                 Divider()
                 Button("New Tournament") {
                     path.append("create-tournament")

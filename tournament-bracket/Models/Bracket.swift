@@ -46,6 +46,22 @@ class Bracket: Identifiable {
         return resultRounds
     }
     
+    func saveCompetitor(_ competitor: Competitor) {
+        if let competitorIndex = competitors.firstIndex(where: { $0.id == competitor.id }) {
+            competitors[competitorIndex] = competitor
+        } else {
+            competitors.append(competitor)
+        }
+    }
+    
+    @discardableResult
+    func removeCompetitor(withID competitorID: UUID) -> Competitor? {
+        if let competitorIndex = competitors.firstIndex(where: { $0.id == competitorID }) {
+            return competitors.remove(at: competitorIndex)
+        }
+        return nil
+    }
+    
     /// Calculates the number of rounds based on the number of competitors
     private func numberOfRounds(for numCompetitors: Int) -> Int {
         Int(log2(Double(numCompetitors)))

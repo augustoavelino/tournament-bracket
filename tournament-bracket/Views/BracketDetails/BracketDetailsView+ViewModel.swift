@@ -30,10 +30,9 @@ extension BracketDetailsView {
             return "\(String(localized: "Round")) \(round.index)"
         }
         
-        func title(for match: Match) -> String {
-            let homeCompetitor = match.homeCompetitor?.name ?? "TBD (Home)"
-            let awayCompetitor = match.awayCompetitor?.name ?? "TBD (Away)"
-            return "\(homeCompetitor) X \(awayCompetitor)"
+        func title(for competitor: Competitor?, isHomeCompetitor: Bool = true) -> String {
+            if let competitorName = competitor?.name { return competitorName }
+            return isHomeCompetitor ? "TBD (Home)" : "TBD (Away)"
         }
     }
 }

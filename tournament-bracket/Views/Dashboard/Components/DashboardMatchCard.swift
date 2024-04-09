@@ -1,5 +1,5 @@
 //
-//  MatchCard.swift
+//  DashboardMatchCard.swift
 //  tournament-bracket
 //
 //  Created by Augusto Avelino on 06/04/24.
@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-struct MatchCard: View {
-    var color: Color = .accentColor
+struct DashboardMatchCard: View {
     var homeCompetitor: String = ""
-    var homeColor: Color = .red
-    var awayColor: Color = .blue
+    var homeColor: Color = .green
     var awayCompetitor: String = ""
+    var awayColor: Color = .blue
     var date: Date?
     
     var body: some View {
@@ -26,20 +25,24 @@ struct MatchCard: View {
                 .clipShape(RoundedRectangle(cornerRadius: 25.0))
                 .overlay {
                     ZStack {
-                        Text("X")
-                            .font(.largeTitle)
+                        Text("vs")
+                            .font(.system(size: 40))
                             .fontWeight(.medium)
+                            .fontWidth(.expanded)
                             .foregroundStyle(.secondary)
+                            .padding(.bottom, 4.0)
                         VStack(spacing: 0.0) {
                             Text(homeCompetitor)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(.title2)
                                 .fontWeight(.bold)
+                                .shadow(radius: 2, y: 2)
                             Spacer()
                             Text(awayCompetitor)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                                 .font(.title2)
                                 .fontWeight(.bold)
+                                .shadow(radius: 2, y: 2)
                         }
                     }
                     .padding()
@@ -51,7 +54,6 @@ struct MatchCard: View {
                     .padding(.vertical, 4.0)
             }
         }
-        .frame(height: 160)
         .background(Color(white: 0.1), in: RoundedRectangle(cornerRadius: 25.0))
         .foregroundStyle(Color.white)
         .padding(.horizontal, 12)
@@ -59,5 +61,5 @@ struct MatchCard: View {
 }
 
 #Preview {
-    MatchCard(homeCompetitor: "João Estrella", awayCompetitor: "Johnny", date: Date(timeIntervalSinceNow: -600000.0))
+    DashboardMatchCard(homeCompetitor: "João Estrella", awayCompetitor: "Johnny", date: Date(timeIntervalSinceNow: -600000.0))
 }

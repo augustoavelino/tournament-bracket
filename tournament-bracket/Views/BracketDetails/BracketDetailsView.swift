@@ -12,16 +12,22 @@ struct BracketDetailsView: View {
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
+        let rounds = viewModel.bracket.rounds.sorted()
         VStack {
             List {
-                ForEach(viewModel.bracket.rounds.sorted()) { round in
+                ForEach(rounds) { round in
                     Section {
                         ForEach(round.matches) { match in
-                            Text(viewModel.title(for: match))
+                            BracketDetailsMatchRow(
+                                homeTitle: viewModel.title(for: match.homeCompetitor),
+                                awayTitle: viewModel.title(for: match.awayCompetitor))
                         }
                     } header: {
                         Text(viewModel.title(for: round))
                     }
+                    .alignmentGuide(.listRowSeparatorLeading, computeValue: { d in
+                        return d[.leading] - 16
+                    })
                 }
             }
         }
