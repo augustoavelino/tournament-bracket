@@ -11,7 +11,7 @@ import SwiftUI
 extension BracketDetailsView {
     class ViewModel: ObservableObject {
         let modelContext: ModelContext
-        @Published private(set) var bracket: Bracket
+        @Published var bracket: Bracket
         
         init(modelContext: ModelContext, bracket: Bracket) {
             self.modelContext = modelContext

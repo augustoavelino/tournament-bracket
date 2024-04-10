@@ -7,18 +7,11 @@
 
 import Foundation
 
-class Round: Identifiable, Codable {
+struct Round: Identifiable, Codable {
     let id: UUID
     let index: Int
     var title: String?
     var matches: [Match]
-    
-    init(id: UUID, index: Int, title: String? = nil, matches: [Match]) {
-        self.id = id
-        self.index = index
-        self.title = title
-        self.matches = matches
-    }
 }
 
 // MARK: - Comparable
