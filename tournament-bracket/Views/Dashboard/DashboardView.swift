@@ -9,33 +9,35 @@ import SwiftUI
 import SwiftData
 
 struct DashboardView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: [SortDescriptor<Bracket>(\.title)]) private var brackets: [Bracket]
     @State private var path = NavigationPath()
-    @ObservedObject var viewModel: ViewModel
     
     var body: some View {
         NavigationStack(path: $path) {
             VStack(spacing: 0.0) {
-                DashboardSection(title: "Up next") {
-                    DashboardMatchCarousel(matches: viewModel.nextMatches)
-                }
-                .frame(height: 240.0)
-                .navigationDestination(for: Match.self) { match in
-                    MatchDetailsView(match: match)
-                }
-                Divider()
+                // TODO: Update carousel section
+//                DashboardSection(title: "Up next") {
+//                    DashboardMatchCarousel(matches: viewModel.nextMatches)
+//                }
+//                .frame(height: 240.0)
+//                .navigationDestination(for: Match.self) { match in
+//                    MatchDetailsView(match: match)
+//                }
+//                Divider()
                 DashboardSection(title: "Tournaments", headerTrailing: EmptyView.init) {
                     ZStack {
                         List {
-                            ForEach(viewModel.brackets) { bracket in
+                            ForEach(brackets) { bracket in
                                 DashboardBracketRow(title: bracket.title)
                                     .onTapGesture {
                                         path.append(bracket)
                                     }
                             }
-                            .onDelete(perform: deleteItems(offset:))
+                            .onDelete(perform: deleteBrackets(at:))
                         }
                         .listStyle(.inset)
-                        if viewModel.brackets.isEmpty {
+                        if brackets.isEmpty {
                             Text("No tournaments")
                                 .font(.callout)
                                 .foregroundStyle(.secondary)
@@ -44,7 +46,9 @@ struct DashboardView: View {
                     }
                 }
                 .navigationDestination(for: Bracket.self) { bracket in
-                    BracketDetailsView(modelContext: viewModel.modelContext, bracket: bracket)
+                    BracketDetailsView()
+                        .modelContext(modelContext)
+                        .environmentObject(bracket)
                 }
                 Divider()
                 Button("New Tournament") {
@@ -53,24 +57,20 @@ struct DashboardView: View {
                 .buttonStyle(PrimaryButtonStyle())
                 .padding()
                 .navigationDestination(for: String.self) { _ in
-                    NewBracketView(modelContext: viewModel.modelContext)
+                    NewBracketView()
+                        .modelContext(modelContext)
                 }
             }
             .navigationTitle("Dashboard")
             .navigationBarTitleDisplayMode(.large)
-            .onAppear {
-                viewModel.fetchData()
-            }
         }
     }
     
-    init(modelContext: ModelContext) {
-        viewModel = ViewModel(modelContext: modelContext)
-    }
-    
-    func deleteItems(offset: IndexSet) {
-        withAnimation {
-            viewModel.deleteBrackets(at: offset)
+    private func deleteBrackets(at offsets: IndexSet) {
+        for index in offsets {
+            withAnimation {
+                modelContext.delete(brackets[index])
+            }
         }
     }
 }
@@ -102,5 +102,6 @@ struct DashboardView: View {
             Competitor(id: UUID(), name: "Team 2"),
         ]))
     }
-    return DashboardView(modelContext: context)
+    return DashboardView()
+        .modelContext(context)
 }

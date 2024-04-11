@@ -25,7 +25,8 @@ struct tournament_bracketApp: App {
 
     var body: some Scene {
         WindowGroup {
-            DashboardView(modelContext: sharedModelContainer.mainContext)
+            DashboardView()
+                .modelContext(sharedModelContainer.mainContext)
         }
         .modelContainer(sharedModelContainer)
     }

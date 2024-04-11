@@ -9,17 +9,18 @@ import SwiftData
 import SwiftUI
 
 struct NewBracketView: View {
-    @ObservedObject var viewModel: ViewModel
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
-    init(modelContext: ModelContext) {
-        viewModel = ViewModel(modelContext: modelContext)
-    }
+    @State private var tournamentName = ""
+    @State private var competitors: [Competitor] = []
+    @State private var isPresentingAlert = false
+    @State private var newCompetitorName: String = ""
     
     var body: some View {
         VStack(spacing: 0.0) {
             VStack(spacing: 0.0) {
-                TextField("Tournament", text: $viewModel.tournamentName)
+                TextField("Tournament", text: $tournamentName)
                     .font(.title)
                 Divider()
                     .padding(.top, 8.0)
@@ -27,7 +28,7 @@ struct NewBracketView: View {
             VStack {
                 List {
                     Section {
-                        ForEach(viewModel.competitors) { competitor in
+                        ForEach(competitors) { competitor in
                             Text(competitor.name)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.horizontal, 8.0)
@@ -38,17 +39,17 @@ struct NewBracketView: View {
                 }
                 .listStyle(.inset)
                 Button("Add Competitor", systemImage: "plus.circle") {
-                    viewModel.alertText = ""
-                    viewModel.isPresentingAlert = true
+                    newCompetitorName = ""
+                    isPresentingAlert = true
                 }
-                .alert("New Competitor", isPresented: $viewModel.isPresentingAlert) {
-                    TextField("Name", text: $viewModel.alertText)
+                .alert("New Competitor", isPresented: $isPresentingAlert) {
+                    TextField("Name", text: $newCompetitorName)
                     Button("Add") {
-                        viewModel.addCompetitor(named: viewModel.alertText)
-                        viewModel.isPresentingAlert = false
+                        addCompetitor(named: newCompetitorName)
+                        isPresentingAlert = false
                     }
                     Button("Cancel", role: .cancel) {
-                        viewModel.isPresentingAlert = false
+                        isPresentingAlert = false
                     }
                 }
             }
@@ -57,12 +58,33 @@ struct NewBracketView: View {
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
             Button(action: {
-                viewModel.saveTournament()
+                saveTournament()
                 dismiss()
             }) {
                 Text("Save")
             }
-            .disabled(!viewModel.canSaveTournament())
+            .disabled(!canSaveTournament())
+        }
+    }
+    
+    private func addCompetitor(named competitorName: String) {
+        let competitor = Competitor(id: UUID(), name: competitorName)
+        competitors.append(competitor)
+    }
+    
+    private func canSaveTournament() -> Bool {
+        !tournamentName.isEmpty && competitors.count > 1
+    }
+    
+    private func saveTournament() {
+        let tournament = Bracket(id: UUID(), title: tournamentName, competitors: competitors)
+        modelContext.insert(tournament)
+        if modelContext.hasChanges {
+            do {
+                try modelContext.save()
+            } catch {
+                debugPrint(error)
+            }
         }
     }
 }
@@ -71,5 +93,6 @@ struct NewBracketView: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Bracket.self, configurations: config)
     let context = ModelContext(container)
-    return NewBracketView(modelContext: context)
+    return NewBracketView()
+        .modelContext(context)
 }

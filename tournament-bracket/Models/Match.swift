@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Match: Identifiable, Codable {
+struct Match: Codable, Identifiable {
     let id: UUID
     var homeCompetitor: Competitor?
     var awayCompetitor: Competitor?
@@ -19,10 +19,6 @@ struct Match: Identifiable, Codable {
 
 extension Match: Hashable {
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self)
-    }
-    
-    static func == (lhs: Match, rhs: Match) -> Bool {
-        lhs.id == rhs.id
+        hasher.combine(id.uuidString)
     }
 }

@@ -9,12 +9,13 @@ import Foundation
 import SwiftData
 
 @Model
-class Bracket: Identifiable {
+class Bracket: ObservableObject {
     let id: UUID
     var title: String
     private(set) var competitors: [Competitor]
     private(set) var rounds: [Round] = []
     var matches: [Match] { rounds.flatMap { $0.matches } }
+    var currentRound: Int = 1
     
     init(id: UUID, title: String, competitors: [Competitor], generateAutomatically: Bool = true) {
         self.id = id
@@ -60,6 +61,10 @@ class Bracket: Identifiable {
             return competitors.remove(at: competitorIndex)
         }
         return nil
+    }
+    
+    func updateMatch(_ match: Match, atIndex matchIndex: Int, roundIndex: Int) {
+        rounds[roundIndex].matches[matchIndex] = match
     }
     
     /// Calculates the number of rounds based on the number of competitors

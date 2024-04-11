@@ -9,33 +9,50 @@ import SwiftData
 import SwiftUI
 
 struct BracketDetailsView: View {
-    @ObservedObject var viewModel: ViewModel
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var bracket: Bracket
     
     var body: some View {
-        let rounds = viewModel.bracket.rounds.sorted()
+        let rounds = bracket.rounds.sorted()
         VStack {
             List {
                 ForEach(rounds) { round in
                     Section {
                         ForEach(round.matches) { match in
-                            BracketDetailsMatchRow(
-                                homeTitle: viewModel.title(for: match.homeCompetitor),
-                                awayTitle: viewModel.title(for: match.awayCompetitor))
+                            BracketDetailsMatchRow(match: match) { resultMatch in
+                                guard let roundIndex = rounds.firstIndex(of: round),
+                                      let matchIndex = round.matches.firstIndex(of: match) else { return }
+                                bracket.updateMatch(resultMatch, atIndex: matchIndex, roundIndex: roundIndex)
+                            }
                         }
                     } header: {
-                        Text(viewModel.title(for: round))
+                        Text(title(for: round))
                     }
                     .alignmentGuide(.listRowSeparatorLeading, computeValue: { d in
+                        // TODO: Fix this later
                         return d[.leading] - 16
                     })
                 }
             }
         }
-        .navigationTitle(viewModel.bracket.title)
+        .navigationTitle(bracket.title)
     }
     
-    init(modelContext: ModelContext, bracket: Bracket) {
-        self.viewModel = ViewModel(modelContext: modelContext, bracket: bracket)
+    func title(for round: Round) -> String {
+        if let roundTitle = round.title { return roundTitle }
+        if round.index == bracket.rounds.count { return String(localized: "Final") }
+        let formatter = TBNumberFormatter()
+        formatter.numberStyle = .ordinal
+        let roundIndex = NSNumber(value: round.index)
+        if let ordinal = formatter.string(from: roundIndex, altOrdinal: true) {
+            return "\(ordinal) \(String(localized: "Round"))"
+        }
+        return "\(String(localized: "Round")) \(round.index)"
+    }
+    
+    func title(for competitor: Competitor?, isHomeCompetitor: Bool = true) -> String {
+        if let competitorName = competitor?.name { return competitorName }
+        return isHomeCompetitor ? "TBD (Home)" : "TBD (Away)"
     }
 }
 
@@ -51,7 +68,9 @@ struct BracketDetailsView: View {
     ])
     context.insert(bracket)
     return NavigationStack {
-        BracketDetailsView(modelContext: context, bracket: bracket)
+        BracketDetailsView()
+            .modelContext(context)
+            .environmentObject(bracket)
     }
     .toolbarTitleDisplayMode(.large)
 }

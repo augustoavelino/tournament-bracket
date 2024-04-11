@@ -7,11 +7,15 @@
 
 import Foundation
 
-struct Round: Identifiable, Codable {
+struct Round: Codable, Identifiable {
     let id: UUID
     let index: Int
     var title: String?
     var matches: [Match]
+    
+    func isComplete() -> Bool {
+        matches.filter({ $0.winner == nil }).isEmpty
+    }
 }
 
 // MARK: - Comparable

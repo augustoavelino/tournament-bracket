@@ -8,32 +8,60 @@
 import SwiftUI
 
 struct BracketDetailsMatchRow: View {
-    var homeTitle: String
-    var homeColor: Color = .green
-    var awayTitle: String
-    var awayColor: Color = .blue
+    @State var match: Match
+    var onSwipeAction: ((Match) -> Void)?
     
     var body: some View {
         HStack {
-            Text(homeTitle)
-                .frame(maxWidth: .infinity)
+            HStack {
+                Text(match.homeCompetitor?.name ?? "TBD (Home)")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .multilineTextAlignment(.center)
+                if let winner = match.winner, winner == match.homeCompetitor {
+                    Image(systemName: "trophy.fill")
+                        .foregroundStyle(.yellow)
+                } else {
+                    Image(systemName: "trophy")
+                        .foregroundStyle(.green)
+                }
+            }
             Text("X")
-            Text(awayTitle)
-                .frame(maxWidth: .infinity)
+            HStack {
+                if let winner = match.winner, winner == match.awayCompetitor {
+                    Image(systemName: "trophy.fill")
+                        .foregroundStyle(.yellow)
+                } else {
+                    Image(systemName: "trophy")
+                        .foregroundStyle(.blue)
+                }
+                Text(match.awayCompetitor?.name ?? "TBD (Away)")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .multilineTextAlignment(.center)
+            }
         }
         .swipeActions(edge: .leading) {
             Button("Winner") {
-                // TODO: Implement winner feature
-                print("WINNER: Home")
+                print("Winner: Home")
+                if let winner = match.winner, winner == match.homeCompetitor {
+                    match.winner = nil
+                } else {
+                    match.winner = match.homeCompetitor
+                }
+                onSwipeAction?(match)
             }
-            .tint(homeColor)
+            .tint(.green)
         }
         .swipeActions(edge: .trailing) {
             Button("Winner") {
-                // TODO: Implement winner feature
-                print("WINNER: Away")
+                print("Winner: Away")
+                if let winner = match.winner, winner == match.awayCompetitor {
+                    match.winner = nil
+                } else {
+                    match.winner = match.awayCompetitor
+                }
+                onSwipeAction?(match)
             }
-            .tint(awayColor)
+            .tint(.blue)
         }
     }
 }
@@ -41,8 +69,7 @@ struct BracketDetailsMatchRow: View {
 #Preview {
     List(0..<1) { item in
         BracketDetailsMatchRow(
-            homeTitle: "Home team",
-            awayTitle: "Away team"
+            match: Match(id: UUID(), homeCompetitor: Competitor(id: UUID(), name: "Home Team"), awayCompetitor: Competitor(id: UUID(), name: "Away Team"), date: Date())
         )
     }
 }
