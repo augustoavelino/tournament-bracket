@@ -61,10 +61,10 @@ struct BracketDetailsView: View {
     let container = try! ModelContainer(for: Bracket.self, configurations: config)
     let context = ModelContext(container)
     let bracket = Bracket(id: UUID(), title: "1st Tournament", competitors: [
-        Competitor(id: UUID(), name: "Testando"),
-        Competitor(id: UUID(), name: "Outro Teste"),
-        Competitor(id: UUID(), name: "Mais um teste"),
-        Competitor(id: UUID(), name: "Ainda mais um teste"),
+        Competitor(id: UUID(), seed: 1, name: "Testando"),
+        Competitor(id: UUID(), seed: 2, name: "Outro Teste"),
+        Competitor(id: UUID(), seed: 3, name: "Mais um teste"),
+        Competitor(id: UUID(), seed: 4, name: "Ainda mais um teste"),
     ])
     context.insert(bracket)
     return NavigationStack {

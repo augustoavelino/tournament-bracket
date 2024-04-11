@@ -82,24 +82,24 @@ struct DashboardView: View {
     let context = ModelContext(container)
     if addPreviewBrackets {
         context.insert(Bracket(id: UUID(), title: "1st Tournament", competitors: [
-            Competitor(id: UUID(), name: "Team 1"),
-            Competitor(id: UUID(), name: "Team 2"),
-            Competitor(id: UUID(), name: "Team 3"),
-            Competitor(id: UUID(), name: "Team 4"),
+            Competitor(id: UUID(), seed: 1, name: "Team 1"),
+            Competitor(id: UUID(), seed: 2, name: "Team 2"),
+            Competitor(id: UUID(), seed: 3, name: "Team 3"),
+            Competitor(id: UUID(), seed: 4, name: "Team 4"),
         ]))
         context.insert(Bracket(id: UUID(), title: "2nd Tournament", competitors: [
-            Competitor(id: UUID(), name: "Time 1"),
-            Competitor(id: UUID(), name: "Time 2"),
-            Competitor(id: UUID(), name: "Time 3"),
-            Competitor(id: UUID(), name: "Time 4"),
-            Competitor(id: UUID(), name: "Time 5"),
-            Competitor(id: UUID(), name: "Time 6"),
-            Competitor(id: UUID(), name: "Time 7"),
-            Competitor(id: UUID(), name: "Time 8"),
+            Competitor(id: UUID(), seed: 1, name: "Time 1"),
+            Competitor(id: UUID(), seed: 2, name: "Time 2"),
+            Competitor(id: UUID(), seed: 3, name: "Time 3"),
+            Competitor(id: UUID(), seed: 4, name: "Time 4"),
+            Competitor(id: UUID(), seed: 5, name: "Time 5"),
+            Competitor(id: UUID(), seed: 6, name: "Time 6"),
+            Competitor(id: UUID(), seed: 7, name: "Time 7"),
+            Competitor(id: UUID(), seed: 8, name: "Time 8"),
         ]))
         context.insert(Bracket(id: UUID(), title: "3rd Tournament", competitors: [
-            Competitor(id: UUID(), name: "Team 1"),
-            Competitor(id: UUID(), name: "Team 2"),
+            Competitor(id: UUID(), seed: 1, name: "Team 1"),
+            Competitor(id: UUID(), seed: 2, name: "Team 2"),
         ]))
     }
     return DashboardView()

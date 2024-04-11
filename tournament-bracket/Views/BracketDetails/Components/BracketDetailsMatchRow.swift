@@ -69,7 +69,7 @@ struct BracketDetailsMatchRow: View {
 #Preview {
     List(0..<1) { item in
         BracketDetailsMatchRow(
-            match: Match(id: UUID(), homeCompetitor: Competitor(id: UUID(), name: "Home Team"), awayCompetitor: Competitor(id: UUID(), name: "Away Team"), date: Date())
+            match: Match(id: UUID(), homeCompetitor: Competitor(id: UUID(), seed: 1, name: "Home Team"), awayCompetitor: Competitor(id: UUID(), seed: 2, name: "Away Team"), date: Date())
         )
     }
 }

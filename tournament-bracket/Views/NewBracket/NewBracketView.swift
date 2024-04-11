@@ -67,8 +67,8 @@ struct NewBracketView: View {
         }
     }
     
-    private func addCompetitor(named competitorName: String) {
-        let competitor = Competitor(id: UUID(), name: competitorName)
+    private func addCompetitor(named competitorName: String, seed: Int? = nil) {
+        let competitor = Competitor(id: UUID(), seed: seed ?? 0, name: competitorName)
         competitors.append(competitor)
     }
     

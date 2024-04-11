@@ -9,5 +9,6 @@ import Foundation
 
 struct Competitor: Codable, Equatable, Identifiable {
     let id: UUID
+    var seed: Int
     var name: String
 }

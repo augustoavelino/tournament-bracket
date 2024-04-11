@@ -14,10 +14,14 @@ struct tournament_bracketApp: App {
         let schema = Schema([
             Bracket.self,
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let currentConfiguration = ModelConfiguration()
 
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return try ModelContainer(
+                for: schema,
+                migrationPlan: BracketMigrationPlan.self,
+                configurations: [currentConfiguration]
+            )
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
