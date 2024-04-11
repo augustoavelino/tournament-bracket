@@ -7,9 +7,11 @@
 
 import SwiftUI
 
+// TODO: [IMPORTANT] Remove logic from component
 struct BracketDetailsMatchRow: View {
     @State var match: Match
     var onSwipeAction: ((Match) -> Void)?
+    private var shouldSwipe: Bool { match.homeCompetitor != nil && match.awayCompetitor != nil }
     
     var body: some View {
         HStack {
@@ -40,36 +42,63 @@ struct BracketDetailsMatchRow: View {
             }
         }
         .swipeActions(edge: .leading) {
-            Button("Winner") {
-                print("Winner: Home")
-                if let winner = match.winner, winner == match.homeCompetitor {
-                    match.winner = nil
-                } else {
-                    match.winner = match.homeCompetitor
-                }
-                onSwipeAction?(match)
-            }
-            .tint(.green)
+            homeWinnerButton
         }
         .swipeActions(edge: .trailing) {
-            Button("Winner") {
-                print("Winner: Away")
-                if let winner = match.winner, winner == match.awayCompetitor {
-                    match.winner = nil
-                } else {
-                    match.winner = match.awayCompetitor
-                }
-                onSwipeAction?(match)
-            }
+            awayWinnerButton
+        }
+    }
+    
+    @ViewBuilder
+    private var homeWinnerButton: some View {
+        if shouldSwipe {
+            Button(action: toggleHomeWinner, label: {
+                Text("Winner")
+            })
+            .tint(.green)
+        }
+    }
+    
+    @ViewBuilder
+    private var awayWinnerButton: some View {
+        if shouldSwipe {
+            Button(action: toggleAwayWinner, label: {
+                Text("Winner")
+            })
             .tint(.blue)
         }
+    }
+    
+    // MARK: - Actions
+    
+    private func toggleHomeWinner() {
+        if let winner = match.winner, winner == match.homeCompetitor {
+            match.winner = nil
+        } else {
+            match.winner = match.homeCompetitor
+        }
+        onSwipeAction?(match)
+    }
+    
+    private func toggleAwayWinner() {
+        if let winner = match.winner, winner == match.awayCompetitor {
+            match.winner = nil
+        } else {
+            match.winner = match.awayCompetitor
+        }
+        onSwipeAction?(match)
     }
 }
 
 #Preview {
     List(0..<1) { item in
         BracketDetailsMatchRow(
-            match: Match(id: UUID(), homeCompetitor: Competitor(id: UUID(), name: "Home Team"), awayCompetitor: Competitor(id: UUID(), name: "Away Team"), date: Date())
+            match: Match(
+                id: UUID(),
+                homeCompetitor: Competitor(id: UUID(), name: "Home Team"),
+                awayCompetitor: Competitor(id: UUID(), name: "Away Team"),
+                date: Date()
+            )
         )
     }
 }
